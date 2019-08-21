@@ -1,0 +1,41 @@
+#canvas {
+    position: absolute;
+    top: 130px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: white;
+}
+
+body {
+
+	background-color: #8acfed;
+	margin: 0;
+	text-align: center;
+}
+
+.logo {
+	height: 100px;
+	width: 375px;
+	padding-top: 30px;
+}
+
+@media (max-width: 1200px) {
+    #canvas {
+       width: 1000px;
+       top: 50px;
+    }
+}
+
+@media (max-width: 1000px) {
+    #canvas {
+       width: 850px;
+       top: 50px;
+       height: 450px;
+    }
+}
+
+/*Добавить медиафайлы для адаптива!!!*/
