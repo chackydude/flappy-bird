@@ -89,8 +89,8 @@ function draw() {
 	}
     
     //Условие записи нового рекорда
-	if (score > localStorage.getItem('record')) {
-			localStorage.setItem('record', score);
+	if (score > localStorage.getItem('record_fb')) {
+			localStorage.setItem('record_fb', score);
 		};
 
 	//Отрисовка объектов пола и птицы
@@ -107,7 +107,6 @@ function draw() {
 
 	ctx.fillStyle = "#000";
 	ctx.font = "24px Verdana";
-	ctx.fillText("Рекорд:" + localStorage.getItem('record'), 10, cvs.height - 17);
 
 	requestAnimationFrame(draw);
 };
