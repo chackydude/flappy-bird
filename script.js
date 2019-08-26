@@ -107,6 +107,7 @@ function draw() {
 
 	ctx.fillStyle = "#000";
 	ctx.font = "24px Verdana";
+	ctx.fillText("Рекорд:" + record_fb, 10, cvs.height - 25);
 
 	requestAnimationFrame(draw);
 };
