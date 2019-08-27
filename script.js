@@ -77,7 +77,8 @@ function draw() {
 
     	//Условие game over'a (касание препятствия или пола)
     	if (xPos + bird.width >= pipe[i].x && xPos <= pipe[i].x + pipeUp.width && (yPos <= pipe[i].y + pipeUp.height || yPos + bird.height >= pipe[i].y + pipeUp.height + gap) || yPos + bird.height >= cvs.height - fg.height) {
-			location.reload();
+				// alert(`Игра окончена! Ваши очки: ${score}. F5 - рестарт.`);
+			    location.reload();
 		}
 
 		//Условие увеличения счета
