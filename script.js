@@ -1,8 +1,7 @@
 var cvs = document.getElementById("canvas"); // Выбор элемента canvas по id
 var ctx = cvs.getContext("2d"); // Описание типа графики
 
-// Создание объектов, учавствущих в отображении
-
+// Изображения
 var bird = new Image();
 var bg = new Image();
 var fg = new Image();
@@ -11,34 +10,28 @@ var pipeDown = new Image();
 var gameOver = new Image()
 
 // Звуковые файлы 
-
 var score_audio = new Audio();
 
-//Указание путей к изображениям и аудио
-
-bird.src = "img/bird.png";
+// Указание путей к изображениям и аудио
+bird.src = "img_2/bird.png";
 bg.src = "img_2/background_long.png";
 fg.src = "img_2/ground_long.png";
-pipeUp.src = "img/tube1.png";
-pipeDown.src = "img/tube2.png";
-gameOver.srs = "img_2/game_over.jpg"
+pipeUp.src = "img_2/tube1.png";
+pipeDown.src = "img_2/tube2.png";
+gameOver.src = "img_2/game_over.jpg"
 
 score_audio.src = "audio/score.mp3";
  
-//Обработка нажатий 
-
+// Обработка нажатий 
 document.addEventListener("keydown", moveUp);
 
 // Функция для обработки нажатий 
-
 function moveUp() {
 	yPos -= 30;
 };
 
-//Создание препятствий pipeUp и pipeDown 
-//(pipe - массив, хранящий в себе препятствия, 
-//которые прошел объект bird)
-
+// Создание препятствий pipeUp и pipeDown 
+// (pipe - массив, хранящий в себе координаты препятствий)
 var pipe = [];
 
 pipe[0] = {
@@ -47,11 +40,9 @@ pipe[0] = {
 }
 
 // Переменная gap - определяет расстояние между pipeUp и pipeDown
-
 var gap = 100;
 
 //Позиция объекта bird
-
 var xPos = 10;	
 var	yPos = 150;
 var	grav = 2;
@@ -62,15 +53,17 @@ function draw() {
 	// Цикл с помощью которого отрисовываются и передвигаются препятствия
 	for (var i = 0; i < pipe.length; i++) {
 
-		  var step = 2;
-		  //Отрисовка препятствий pipeUp и pipeDown
+		  // Переменная step определяет на скольок изменится координата препятствия за одну итерацию
+		  var step = 1;
+
+		  // Отрисовка препятствий pipeUp и pipeDown
 		  ctx.drawImage(pipeUp, pipe[i].x, pipe[i].y);
     	  ctx.drawImage(pipeDown, pipe[i].x, pipe[i].y + pipeUp.height + gap);
 
-    	  //Изменение координаты x препятствий 
-    	  pipe[i].x-=step;
+    	  // Изменение координаты x препятствий 
+    	  pipe[i].x -= step;
 
-    	  //Условие появления новых препятствий
+    	  // Условие появления новых препятствий
     	  if (pipe[i].x == 945) {
     	  	pipe.push({
     	  		x : cvs.width,
@@ -80,20 +73,18 @@ function draw() {
 
     	//Условие game over'a (касание препятствия или пола)
     	if (xPos + bird.width >= pipe[i].x && xPos <= pipe[i].x + pipeUp.width && (yPos <= pipe[i].y + pipeUp.height || yPos + bird.height >= pipe[i].y + pipeUp.height + gap) || yPos + bird.height >= cvs.height - fg.height) {
-			    
-			    // location.reload();
+			    // location.reload(); (старая версия)
 			    step = 0;
-			    ctx.clearRect(0, 0, cvs.width, cvs.height);
-			    ctx.drawImage(gameOver);
+			    // ctx.clearRect(0, 0, cvs.width, cvs.height); (старая версия)
+			    ctx.drawImage(gameOver, 0, 0, cvs.width, cvs.height);
 			    return alert(`Игра окончена! Ваши очки: ${score}. F5 - рестарт.`);
 			}
 
-		//Условие увеличения счета
+		// Условие увеличения счета
 		if (pipe[i].x == 5) {
 			score++;
 			score_audio.play();
 		}
-		
 	}
 
 	//Отрисовка объектов пола и птицы
@@ -105,14 +96,10 @@ function draw() {
 			localStorage.setItem('record_fb', score);
 		};
 
-	// //Отрисовка объектов пола и птицы
-	// ctx.drawImage(fg, 0, cvs.height - fg.height );
-	// ctx.drawImage(bird, xPos, yPos);
-
-	//Увеличение координаты y для имитации гравитации
+	// Увеличение координаты y для имитации гравитации
 	yPos += grav;
 	
-	//Дорисовка интерфейса Счета и Рекорда
+	//Дорисовка интерфейса Счета и Рекорда(localstorage)
 	ctx.fillStyle = "#000";
 	ctx.font = "24px Verdana";
 	ctx.fillText("Счет:" + score, 10, cvs.height - 50);
@@ -124,6 +111,6 @@ function draw() {
 	requestAnimationFrame(draw);
 };
 
-//Пока не загрузится изображение tube2.png не загрузится страница
+// Пока не загрузится изображение tube2.png не загрузится страница
 pipeDown.onload = draw; 
 
