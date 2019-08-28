@@ -8,6 +8,7 @@ var bg = new Image();
 var fg = new Image();
 var pipeUp = new Image();
 var pipeDown = new Image();
+var gameOver = new Image()
 
 // Звуковые файлы 
 
@@ -20,6 +21,7 @@ bg.src = "img_2/background_long.png";
 fg.src = "img_2/ground_long.png";
 pipeUp.src = "img/tube1.png";
 pipeDown.src = "img/tube2.png";
+gameOver.src = "img_2/game_over.jpg"
 
 score_audio.src = "audio/score.mp3";
  
@@ -60,12 +62,13 @@ function draw() {
 	// Цикл с помощью которого отрисовываются и передвигаются препятствия
 	for (var i = 0; i < pipe.length; i++) {
 
+		  var step = 2;
 		  //Отрисовка препятствий pipeUp и pipeDown
 		  ctx.drawImage(pipeUp, pipe[i].x, pipe[i].y);
     	  ctx.drawImage(pipeDown, pipe[i].x, pipe[i].y + pipeUp.height + gap);
 
     	  //Изменение координаты x препятствий 
-    	  pipe[i].x--;
+    	  pipe[i].x-=step;
 
     	  //Условие появления новых препятствий
     	  if (pipe[i].x == 945) {
@@ -79,7 +82,9 @@ function draw() {
     	if (xPos + bird.width >= pipe[i].x && xPos <= pipe[i].x + pipeUp.width && (yPos <= pipe[i].y + pipeUp.height || yPos + bird.height >= pipe[i].y + pipeUp.height + gap) || yPos + bird.height >= cvs.height - fg.height) {
 			    
 			    // location.reload();
-			     return alert(`Игра окончена! Ваши очки: ${score}. F5 - рестарт.`);
+			    step = 0;
+			    ctx.drawImage(gameOver);
+			    return alert(`Игра окончена! Ваши очки: ${score}. F5 - рестарт.`);
 			}
 
 		//Условие увеличения счета
@@ -89,15 +94,19 @@ function draw() {
 		}
 		
 	}
+
+	//Отрисовка объектов пола и птицы
+	ctx.drawImage(bird, xPos, yPos);
+	ctx.drawImage(fg, 0, cvs.height - fg.height );
     
     //Условие записи нового рекорда
 	if (score > localStorage.getItem('record_fb')) {
 			localStorage.setItem('record_fb', score);
 		};
 
-	//Отрисовка объектов пола и птицы
-	ctx.drawImage(fg, 0, cvs.height - fg.height );
-	ctx.drawImage(bird, xPos, yPos);
+	// //Отрисовка объектов пола и птицы
+	// ctx.drawImage(fg, 0, cvs.height - fg.height );
+	// ctx.drawImage(bird, xPos, yPos);
 
 	//Увеличение координаты y для имитации гравитации
 	yPos += grav;
@@ -116,3 +125,4 @@ function draw() {
 
 //Пока не загрузится изображение tube2.png не загрузится страница
 pipeDown.onload = draw; 
+
