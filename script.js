@@ -21,7 +21,7 @@ bg.src = "img_2/background_long.png";
 fg.src = "img_2/ground_long.png";
 pipeUp.src = "img/tube1.png";
 pipeDown.src = "img/tube2.png";
-gameOver.src = "img_2/game_over.jpg"
+gameOver.srs = "img_2/game_over.jpg"
 
 score_audio.src = "audio/score.mp3";
  
@@ -83,6 +83,7 @@ function draw() {
 			    
 			    // location.reload();
 			    step = 0;
+			    ctx.clearRect(0, 0, cvs.width, cvs.height);
 			    ctx.drawImage(gameOver);
 			    return alert(`Игра окончена! Ваши очки: ${score}. F5 - рестарт.`);
 			}
