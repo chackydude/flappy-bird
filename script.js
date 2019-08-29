@@ -7,7 +7,7 @@ var bg = new Image();
 var fg = new Image();
 var pipeUp = new Image();
 var pipeDown = new Image();
-var gameOver = new Image()
+var gameOver = new Image();
 
 // Звуковые файлы 
 var score_audio = new Audio();
@@ -30,6 +30,35 @@ function moveUp() {
 	yPos -= 30;
 };
 
+// Пауза
+document.addEventListener("keydown", function(pause){
+	if (pause.keyCode == 80) {
+		alert('Пауза');
+	}
+});
+
+// document.addEventListener("keydown", function(difficulty){
+// 	if (difficulty.keyCode == 76) {
+// 		level = prompt('Выберите уровень сложности (easy, medium, hard)','');
+// 		localStorage.setItem('set-level', level);
+
+// 		if (localStorage.getItem('set-level') == 'easy') {
+// 			step = 2;
+// 			grav = 2;
+// 		};
+
+// 		if (localStorage.getItem('set-level') == 'medium') {
+// 			step = 3;
+// 			grav = 2;
+// 		};
+
+// 		if (localStorage.getItem('set-level') == 'hard') {
+// 			step = 4;
+// 			grav = 2;
+// 		};
+// 	}
+// });
+
 // Создание препятствий pipeUp и pipeDown 
 // (pipe - массив, хранящий в себе координаты препятствий)
 var pipe = [];
@@ -45,8 +74,9 @@ var gap = 100;
 //Позиция объекта bird
 var xPos = 10;	
 var	yPos = 150;
-var	grav = 2;
+var	grav = 2.5;
 var score = 0;
+var step = 2;
 function draw() {
 	ctx.drawImage(bg , 0, 0);	
 	
@@ -54,7 +84,6 @@ function draw() {
 	for (var i = 0; i < pipe.length; i++) {
 
 		  // Переменная step определяет на скольок изменится координата препятствия за одну итерацию
-		  var step = 1;
 
 		  // Отрисовка препятствий pipeUp и pipeDown
 		  ctx.drawImage(pipeUp, pipe[i].x, pipe[i].y);
@@ -81,7 +110,7 @@ function draw() {
 			}
 
 		// Условие увеличения счета
-		if (pipe[i].x == 5) {
+		if (pipe[i].x == 1) {
 			score++;
 			score_audio.play();
 		}
