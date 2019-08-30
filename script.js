@@ -33,7 +33,7 @@ function moveUp() {
 // Пауза
 document.addEventListener("keydown", function(pause){
 	if (pause.keyCode == 80) {
-		alert('Пауза');
+		alert('Pause');
 	}
 });
 
@@ -106,7 +106,7 @@ function draw() {
 			    step = 0;
 			    // ctx.clearRect(0, 0, cvs.width, cvs.height); (старая версия)
 			    ctx.drawImage(gameOver, 0, 0, cvs.width, cvs.height);
-			    return alert(`Игра окончена! Ваши очки: ${score}. F5 - рестарт.`);
+			    return alert(`Game over! Your score: ${score}. Press F5 to restart.`);
 			}
 
 		// Условие увеличения счета

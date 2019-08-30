@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'NESCyrillic';
+  src: url('fonts/NESCyrillic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 #canvas {
   top: 20px;
   position: relative;
@@ -22,7 +29,16 @@ body {
   padding-top: 45px;
 }
 
-.cantainer {
+.container {
+  margin: auto;
   width: 100%;
   max-width: 1430px;
+}
+
+.instructions {
+  margin-top: 40px;
+}
+
+.text_color {
+  color: red;
 }
