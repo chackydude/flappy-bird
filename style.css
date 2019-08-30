@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'NESCyrillic.ttf';
+  font-family: 'Pixel';
   src: url('NESCyrillic.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
@@ -22,6 +22,8 @@ body {
 	background-color: #8acfed;
 	margin: 0;
 	text-align: center;
+  font-family: Pixel;
+  font-size: 20px;
 }
 
 .logo {
