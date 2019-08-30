@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'NESCyrillic';
-  src: url('fonts/NESCyrillic.ttf') format('truetype');
+  src: url('NESCyrillic.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
