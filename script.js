@@ -131,11 +131,11 @@ function draw() {
 	//Дорисовка интерфейса Счета и Рекорда(localstorage)
 	ctx.fillStyle = "#000";
 	ctx.font = "24px Verdana";
-	ctx.fillText("Счет:" + score, 10, cvs.height - 50);
+	ctx.fillText("Score:" + score, 10, cvs.height - 50);
 
 	ctx.fillStyle = "#000";
 	ctx.font = "24px Verdana";
-	ctx.fillText("Рекорд:" + localStorage.getItem('record_fb'), 10, cvs.height - 25);
+	ctx.fillText("Record:" + localStorage.getItem('record_fb'), 10, cvs.height - 25);
 
 	requestAnimationFrame(draw);
 };
