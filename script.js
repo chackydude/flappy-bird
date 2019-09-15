@@ -74,7 +74,7 @@ var gap = 100;
 //Позиция объекта bird
 var xPos = 10;	
 var	yPos = 150;
-var	grav = 2.5;
+var	grav = 3;
 var score = 0;
 var step = 2;
 function draw() {
@@ -83,7 +83,7 @@ function draw() {
 	// Цикл с помощью которого отрисовываются и передвигаются препятствия
 	for (var i = 0; i < pipe.length; i++) {
 
-		  // Переменная step определяет на скольок изменится координата препятствия за одну итерацию
+		  // Переменная step определяет на сколько изменится координата препятствия за одну итерацию
 
 		  // Отрисовка препятствий pipeUp и pipeDown
 		  ctx.drawImage(pipeUp, pipe[i].x, pipe[i].y);
