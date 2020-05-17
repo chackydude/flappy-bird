@@ -5,3 +5,5 @@ Hi, dan9 here.
 
 ![Иллюстрация к проекту](https://github.com/chackydude/flappy-bird/raw/master/example.png)
 ![Иллюстрация к проекту](https://github.com/chackydude/flappy-bird/raw/master/register.png)
+
+![Иллюстрация к проекту](https://github.com/chackydude/flappy-bird/raw/master/index.png)
