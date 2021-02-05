@@ -1,7 +1,38 @@
 import { config } from "./config.js";
 
-let cvs = document.getElementById("canvas");
+// buffers
+let gravBuffer = config.grav;
+let stepBuffer = config.step;
+let animationId;
+
+let cvs = document.querySelector(".field");
 let ctx = cvs.getContext("2d"); // graphs. type
+
+let userScoreElement = document.querySelector(".user-score-sheet__user-score");
+let userRecordElement = document.querySelector(".user-score-sheet__user-record");
+let tapButton = document.querySelector(".tap-button");
+
+let pauseButton = document.querySelector(".pause-button");
+let pauseWrapper = document.querySelector(".pause-wrapper");
+let gameOverWrapper = document.querySelector(".game-over-wrapper");
+let closeButtonPause = document.querySelector('.pause-window__close-pause-button');
+
+let restartGameOverButton = document.querySelector('.game-over-menu__restart-button');
+let restartPauseButton = document.querySelector('.pause-menu__restart-button');
+
+closeButtonPause.addEventListener("click", resumeGame);
+restartGameOverButton.addEventListener('click', () => {
+	gameOverWrapper.style.display = 'none';
+	restartGame();
+});
+restartPauseButton.addEventListener('click', () => {
+	pauseWrapper.style.display = 'none';
+	cancelAnimationFrame(animationId);
+	restartGame();
+});
+
+// 20 - wrapper's margin-top, 100vh mobile bug
+document.body.style.height = (document.documentElement.clientHeight.toString() - 20)+ 'px';
 
 // images
 let bird = new Image();
@@ -14,11 +45,11 @@ let gameOver = new Image();
 // audio
 let score_audio = new Audio();
 
-bird.src = "desktop/bird.png";
-bg.src = "desktop/background.png";
-fg.src = "desktop/ground.png";
-pipeUp.src = "desktop/tube1.png";
-pipeDown.src = "desktop/tube2.png";
+bird.src = "mobile/bird.png";
+bg.src = "mobile/background.png";
+fg.src = "mobile/ground.png";
+pipeUp.src = "mobile/tube1.png";
+pipeDown.src = "mobile/tube2.png";
 gameOver.src = "desktop/game-over.jpg";
 score_audio.src = "audio/score.mp3";
 
@@ -27,6 +58,54 @@ config.pipe[0] = {
 	x : cvs.width,
 	y : 0
 };
+
+tapButton.addEventListener("click", moveUp);
+
+// pause
+pauseButton.addEventListener('click', pauseGame);
+
+function pauseGame() {
+	changePauseDialogVisibility();
+	pauseAction();
+}
+
+function resumeGame() {
+	changePauseDialogVisibility();
+	resume();
+}
+
+function restartGame() {
+	config.step = stepBuffer;
+	config.grav = gravBuffer;
+	config.score = 0;
+	config.pipe = [];
+	config.xPos = 10;
+	config.yPos = 150;
+	config.pipe[0] = {
+		x : cvs.width,
+		y : 0
+	};
+	requestAnimationFrame(drawGame);
+}
+
+function changePauseDialogVisibility() {
+	if (pauseWrapper.style.display === "grid") {
+		pauseWrapper.style.display = "none";
+	} else {
+		pauseWrapper.style.display = "grid";
+		pauseWrapper.style.placeItems = "center"
+	}
+}
+
+function pauseAction() {
+	config.grav = 0;
+	config.step = 0;
+}
+
+function resume() {
+	config.grav = gravBuffer;
+	config.step = stepBuffer;
+}
 
 // pause
 document.addEventListener("keydown", function(pause){
@@ -65,6 +144,7 @@ function isGameOver(currentPipe) {
 function checkScore(score) {
 	if (score > localStorage.getItem('record_fb')) {
 		localStorage.setItem('record_fb', score);
+		userRecordElement.innerText = `Record: ${localStorage.getItem('record_fb')} `;
 	}
 }
 
@@ -92,15 +172,19 @@ function drawGame() {
 
     	// game over condition
     	if (isGameOver(config.pipe[i])) {
+				ctx.drawImage(bird, config.xPos, config.yPos);
+				ctx.drawImage(fg, 0, cvs.height - fg.height );
 				config.step = 0;
-			    ctx.drawImage(gameOver, 0, 0, cvs.width, cvs.height);
-			    return alert(`Game over! Your score: ${config.score}. Press F5 to restart.`);
-		}
+				gameOverWrapper.style.display = "grid";
+				gameOverWrapper.style.placeItems = "center";
+    			return;
+    	}
 
 		// score increase condition
 		if (config.pipe[i].x === config.SCORE_POINT_X) {
 			config.score++;
 			score_audio.play();
+			userScoreElement.innerText = `Score: ${config.score}`;
 		}
  	}
 
@@ -114,8 +198,11 @@ function drawGame() {
 	// changing OY coordinate of bird
 	config.yPos += config.grav;
 
-	drawInterface(config.score);
-	requestAnimationFrame(drawGame);
+	userScoreElement.innerText = `Score: ${config.score}`;
+	userRecordElement.innerText = `Record: ${localStorage.getItem('record_fb')} `;
+
+	// drawInterface(config.score);
+	animationId = requestAnimationFrame(drawGame);
 }
 
 // run

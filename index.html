@@ -6,15 +6,52 @@
 	<title>flappy_bird</title>
 </head>
 <body>	
-	<div class="container">
-		<p><img class="logo" src="desktop/logo.png" alt=""></p>
-		<canvas id="canvas" width="1133" height="512"></canvas>
-		<script src="script/script.js" type="module"></script>
-		<p class="instructions">
-			PRESS "<span class="text_color">P</span>" TO
-			<span class="text_color">P</span>AUSE | PRESS
-			"<span class="text_color">F5</span>" TO
-			<span class="text_color">R</span>ESTART</p>
-    </div>		
+		<div class="game-info">
+			<img class="logo" src="desktop/logo.png" alt="">
+			<div class="game-info__user-score-sheet user-score-sheet">
+				<div class="user-score-sheet__user-score"></div>
+				<div class="user-score-sheet__user-record"></div>
+			</div>
+		</div>
+		<canvas class="field" height="450" width="280"></canvas>
+		<div class="control-panel">
+			<div class="control-panel__pause-button-wrapper">
+				<button class="pause-button">
+						<span class="pause-button__icon">
+							<div></div>
+							<div></div>
+						</span>
+				</button>
+			</div>
+			<div class="control-panel__tap-button-wrapper">
+				<button class="tap-button">
+					TAP
+				</button>
+			</div>
+		</div>
+
+		<div class="pause-wrapper">
+			<div class="pause-wrapper__pause-window pause-window">
+				<button class="pause-window__close-pause-button">✖</button>
+				<div class="pause-window__pause-menu pause-menu">
+					<button class="pause-menu__restart-button">restart</button>
+					<button class="pause-menu__menu-button">menu</button>
+				</div>
+			</div>
+		</div>
+		<div class="game-over-wrapper">
+			<div class="game-over-wrapper__game-over-window game-over-window">
+				<div class="game-over-title">
+					<h2>Game Over</h2>
+					<p class="user-score"></p>
+				</div>
+				<div class="game-over-window__game-over-menu game-over-menu">
+					<button class="game-over-menu__restart-button">restart</button>
+					<button class="game-over-menu__menu-button">menu</button>
+				</div>
+			</div>
+		</div>
+
+	<script src="script/script.js" type="module"></script>
 </body>
 </html>
