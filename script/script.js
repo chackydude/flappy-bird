@@ -5,6 +5,7 @@ let gravBuffer = config.grav;
 let stepBuffer = config.step;
 let animationId;
 
+// DOM elements
 let cvs = document.querySelector(".field");
 let ctx = cvs.getContext("2d"); // graphs. type
 
@@ -19,17 +20,6 @@ let closeButtonPause = document.querySelector('.pause-window__close-pause-button
 
 let restartGameOverButton = document.querySelector('.game-over-menu__restart-button');
 let restartPauseButton = document.querySelector('.pause-menu__restart-button');
-
-closeButtonPause.addEventListener("click", resumeGame);
-restartGameOverButton.addEventListener('click', () => {
-	gameOverWrapper.style.display = 'none';
-	restartGame();
-});
-restartPauseButton.addEventListener('click', () => {
-	pauseWrapper.style.display = 'none';
-	cancelAnimationFrame(animationId);
-	restartGame();
-});
 
 // 20 - wrapper's margin-top, 100vh mobile bug
 document.body.style.height = (document.documentElement.clientHeight.toString() - 20)+ 'px';
@@ -59,19 +49,58 @@ config.pipe[0] = {
 	y : 0
 };
 
+// adding event listeners
+// restart
+closeButtonPause.addEventListener("click", resumeGame);
+restartGameOverButton.addEventListener('click', () => {
+	gameOverWrapper.style.display = 'none';
+	restartGame();
+});
+restartPauseButton.addEventListener('click', () => {
+	pauseWrapper.style.display = 'none';
+	cancelAnimationFrame(animationId);
+	restartGame();
+});
+
+// move up (mobile)
 tapButton.addEventListener("click", moveUp);
 
-// pause
+// movu up (desktop)
+document.addEventListener("keydown", moveUp);
+
+function moveUp() {
+	config.yPos -= 30;
+}
+
+// pause (desktop)
+document.addEventListener("keydown", function(pause){
+	if (pause.code === "KeyP") {
+		alert('Pause');
+	}
+});
+
+// pause (mobile)
 pauseButton.addEventListener('click', pauseGame);
 
+// game control
 function pauseGame() {
 	changePauseDialogVisibility();
 	pauseAction();
 }
 
+function pauseAction() {
+	config.grav = 0;
+	config.step = 0;
+}
+
 function resumeGame() {
 	changePauseDialogVisibility();
 	resume();
+}
+
+function resume() {
+	config.grav = gravBuffer;
+	config.step = stepBuffer;
 }
 
 function restartGame() {
@@ -95,41 +124,6 @@ function changePauseDialogVisibility() {
 		pauseWrapper.style.display = "grid";
 		pauseWrapper.style.placeItems = "center"
 	}
-}
-
-function pauseAction() {
-	config.grav = 0;
-	config.step = 0;
-}
-
-function resume() {
-	config.grav = gravBuffer;
-	config.step = stepBuffer;
-}
-
-// pause
-document.addEventListener("keydown", function(pause){
-	if (pause.code === "KeyP") {
-		alert('Pause');
-	}
-});
-
-document.addEventListener("keydown", moveUp);
-
-function moveUp() {
-	config.yPos -= 30;
-}
-
-function drawInterface(score) {
-	// score
-	ctx.fillStyle = "#000";
-	ctx.font = "26px Consolas";
-	ctx.fillText("Score:" + score, 10, cvs.height - 50);
-
-	// record
-	ctx.fillStyle = "#000";
-	ctx.font = "26px Consolas";
-	ctx.fillText("Record:" + localStorage.getItem('record_fb'), 10, cvs.height - 25);
 }
 
 function isGameOver(currentPipe) {
@@ -172,6 +166,7 @@ function drawGame() {
 
     	// game over condition
     	if (isGameOver(config.pipe[i])) {
+    			// field view fix
 				ctx.drawImage(bird, config.xPos, config.yPos);
 				ctx.drawImage(fg, 0, cvs.height - fg.height );
 				config.step = 0;
