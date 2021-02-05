@@ -18,7 +18,7 @@ bg.src = "img_2/background_long.png";
 fg.src = "img_2/ground_long.png";
 pipeUp.src = "img_2/tube1.png";
 pipeDown.src = "img_2/tube2.png";
-gameOver.src = "img_2/game_over.jpg"
+gameOver.src = "img_2/game_over.jpg";
 
 score_audio.src = "audio/score.mp3";
  
@@ -28,58 +28,57 @@ document.addEventListener("keydown", moveUp);
 // Функция для обработки нажатий 
 function moveUp() {
 	yPos -= 30;
-};
+}
 
 // Пауза
 document.addEventListener("keydown", function(pause){
-	if (pause.keyCode == 80) {
+	if (pause.code === "KeyP") {
 		alert('Pause');
 	}
 });
 
 // document.addEventListener("keydown", function(difficulty){
-// 	if (difficulty.keyCode == 76) {
+// 	if (difficulty.keyCode === 76) {
 // 		level = prompt('Выберите уровень сложности (easy, medium, hard)','');
 // 		localStorage.setItem('set-level', level);
-
+//
 // 		if (localStorage.getItem('set-level') == 'easy') {
 // 			step = 2;
 // 			grav = 2;
 // 		};
-
+//
 // 		if (localStorage.getItem('set-level') == 'medium') {
 // 			step = 3;
 // 			grav = 2;
 // 		};
-
+//
 // 		if (localStorage.getItem('set-level') == 'hard') {
 // 			step = 4;
 // 			grav = 2;
 // 		};
 // 	}
 // });
-// Проблема изменения уровня сложности заключается в том, что при различных step не всегда значение pipe[i].x будет развно 1
+// Проблема изменения уровня сложности заключается в том, что при различных step не всегда значение pipe[i].x будет равно 1
 
 // Создание препятствий pipeUp и pipeDown 
 // (pipe - массив, хранящий в себе координаты препятствий)
-var pipe = [];
+let pipe = [];
 
 pipe[0] = {
 	x : cvs.width,
 	y : 0
-}
+};
 
 // Переменная gap - определяет расстояние между pipeUp и pipeDown
-var gap = 100;
+let gap = 100;
 
 //Позиция объекта bird
-var xPos = 10;	
-var	yPos = 150;
+let xPos = 10;
+let	yPos = 150;
 
-//Переменные изменения координаты Y (grav), счета (score), скорости изменения координаты X препятствий (step)
-var	grav = 2.65;
-var score = 0;
-var step = 2;
+var	grav = 2.65; // изменение координаты Y
+var score = 0;	// счет
+var step = 2; // изменение координаты X
 function draw() {
 	ctx.drawImage(bg , 0, 0);	
 	
@@ -96,7 +95,7 @@ function draw() {
     	  pipe[i].x -= step;
 
     	  // Условие появления новых препятствий
-    	  if (pipe[i].x == 931) { //945
+    	  if (pipe[i].x === 931) { //945
     	  	pipe.push({
     	  		x : cvs.width,
     	  		y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
@@ -113,7 +112,7 @@ function draw() {
 			}
 
 		// Условие увеличения счета
-		if (pipe[i].x == 1) {
+		if (pipe[i].x === 1) {
 			score++;
 			score_audio.play();
 		};
@@ -128,7 +127,7 @@ function draw() {
 		// 	grav = 3.75;
 		// };
 		// console.log(step, grav);
-		// Проблема изменения уровня сложности заключается в том, что при различных step не всегда значение pipe[i].x будет развно 1
+		// Проблема изменения уровня сложности заключается в том, что при различных step не всегда значение pipe[i].x будет равно 1
  	}
 
 	//Отрисовка объектов пола и птицы
