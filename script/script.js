@@ -21,6 +21,8 @@ let closeButtonPause = document.querySelector('.pause-window__close-pause-button
 let restartGameOverButton = document.querySelector('.game-over-menu__restart-button');
 let restartPauseButton = document.querySelector('.pause-menu__restart-button');
 
+let userGameOverScore = document.querySelector('.user-score');
+
 // 20 - wrapper's margin-top, 100vh mobile bug
 document.body.style.height = (document.documentElement.clientHeight.toString() - 20)+ 'px';
 
@@ -170,6 +172,8 @@ function drawGame() {
 				ctx.drawImage(bird, config.xPos, config.yPos);
 				ctx.drawImage(fg, 0, cvs.height - fg.height );
 				config.step = 0;
+
+				userGameOverScore.innerText = `Score: ${ config.score }`
 				gameOverWrapper.style.display = "grid";
 				gameOverWrapper.style.placeItems = "center";
     			return;
