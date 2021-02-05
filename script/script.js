@@ -14,12 +14,12 @@ let gameOver = new Image();
 // audio
 let score_audio = new Audio();
 
-bird.src = "img_2/bird.png";
-bg.src = "img_2/background_long.png";
-fg.src = "img_2/ground_long.png";
-pipeUp.src = "img_2/tube1.png";
-pipeDown.src = "img_2/tube2.png";
-gameOver.src = "img_2/game_over.jpg";
+bird.src = "desktop/bird.png";
+bg.src = "desktop/background.png";
+fg.src = "desktop/ground.png";
+pipeUp.src = "desktop/tube1.png";
+pipeDown.src = "desktop/tube2.png";
+gameOver.src = "desktop/game-over.jpg";
 score_audio.src = "audio/score.mp3";
 
 // first barrier
