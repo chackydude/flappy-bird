@@ -1,3 +1,7 @@
+/*
+  TODO: fix viewport scaling bug
+*/
+
 @font-face {
   font-family: 'Pixel';
   src: url('fonts/NESCyrillic.ttf') format('truetype');
