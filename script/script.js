@@ -24,7 +24,7 @@ let restartPauseButton = document.querySelector('.pause-menu__restart-button');
 let userGameOverScore = document.querySelector('.user-score');
 
 // 20 - wrapper's margin-top, 100vh mobile bug
-document.body.style.height = (document.documentElement.clientHeight.toString() - 20)+ 'px';
+// document.body.style.height = (document.documentElement.clientHeight.toString() - 20)+ 'px';
 
 // images
 let bird = new Image();
@@ -182,7 +182,7 @@ function drawGame() {
 		// score increase condition
 		if (config.pipe[i].x === config.SCORE_POINT_X) {
 			config.score++;
-			score_audio.play();
+			// score_audio.play();
 			userScoreElement.innerText = `Score: ${config.score}`;
 		}
  	}

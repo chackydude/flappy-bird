@@ -1,7 +1,3 @@
-/*
-  TODO: fix viewport scaling bug
-*/
-
 @font-face {
   font-family: 'Pixel';
   src: url('fonts/NESCyrillic.ttf') format('truetype');
@@ -172,4 +168,8 @@ body {
   margin-top: 30px;
   text-align: center;
   color: #2e558e;
+}
+
+@media (max-width: 300px) {
+
 }
