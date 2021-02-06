@@ -40,6 +40,7 @@ let score_audio = new Audio();
 bird.src = "mobile/bird.png";
 bg.src = "mobile/background.png";
 fg.src = "mobile/ground.png";
+fg.height = 50;
 pipeUp.src = "mobile/tube1.png";
 pipeDown.src = "mobile/tube2.png";
 gameOver.src = "desktop/game-over.jpg";
@@ -198,7 +199,7 @@ function drawGame() {
 	config.yPos += config.grav;
 
 	userScoreElement.innerText = `Score: ${config.score}`;
-	userRecordElement.innerText = `Record: ${localStorage.getItem('record_fb')} `;
+	userRecordElement.innerText = `Record: ${localStorage.getItem('record_fb') == null ? " clear" : localStorage.getItem('record_fb')} `;
 
 	// drawInterface(config.score);
 	animationId = requestAnimationFrame(drawGame);

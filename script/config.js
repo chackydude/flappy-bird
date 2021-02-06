@@ -1,6 +1,6 @@
 export let config = {
     pipe: [], // position of the bird
-    gap: 200, // px, gap between pipeUp & pipeDown
+    gap: 150, // px, gap between pipeUp & pipeDown
 
     // bird starting coordinates
     xPos : 10,
