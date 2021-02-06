@@ -171,9 +171,9 @@ body {
 }
 
 @media (max-width: 400px) {
-  .game-info {
-    margin-top: 20px;
-  }
+  /*.game-info {*/
+  /*  margin-top: 20px;*/
+  /*}*/
 
   .game-info__user-score-sheet {
     padding-right: 10px;
